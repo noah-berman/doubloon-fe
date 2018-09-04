@@ -23,7 +23,11 @@ import '../Assets/css/App.css';
 class App extends Component {
   render() {
     return (
-      <Home />
+      <div className="App">
+        <NavBar />
+        <Home />
+        <NavBar />
+      </div>
     )
   }
 }
