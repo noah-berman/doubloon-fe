@@ -7,7 +7,7 @@ const initialState = {
 function BudgetReducer(state=initialState, action) {
   switch (action.type) {
     case ADD_TRANSACTION:
-      return {...state, value: parseInt(state.value) + parseInt(action.payload)}
+      return {...state, value: parseInt(state.value) + parseInt(action.payload)};
     default:
       return state;
   }

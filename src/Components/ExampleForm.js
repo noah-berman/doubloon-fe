@@ -12,7 +12,7 @@ class ExampleForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.props)
+    console.log("transaction value", this.props)
     this.props.addTransaction(this.state.transaction)
   }
 

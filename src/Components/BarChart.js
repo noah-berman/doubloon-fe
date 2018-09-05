@@ -7,7 +7,7 @@ const BarChartContainer = (props) => {
   console.log(props)
   let data = [
     {
-      label: "somethingA",
+      label: "firstLayer",
       values: [
         { x: "SomethingA", y: props.value },
         { x: "SomethingB", y: 4 },
@@ -15,9 +15,9 @@ const BarChartContainer = (props) => {
       ]
     },
     {
-      label: "somethingB",
+      label: "secondLayer",
       values: [
-        { x: "SomethingA", y: 50 },
+        { x: "SomethingA", y: props.value },
         { x: "SomethingB", y: 4 },
         { x: "SomethingC", y: 3 }
       ]
