@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import Home from './Home.js'
 import NavBar from './NavBar.js'
@@ -38,7 +39,13 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state){
+  return {
+    budget: state.budget.budget
+  }
+}
+
+export default connect()(App);
 
 // <Fragment>
 //   <NavBar />

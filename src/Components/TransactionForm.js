@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import * as actions from '../Actions'
-import { addTransactionAction } from '../Actions';
+import { addTransactionAction } from '../Actions'
 
-class ExampleForm extends Component {
+class TransactionForm extends Component {
 
   state = {
     transaction: ""
@@ -12,7 +11,6 @@ class ExampleForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("transaction value", this.props)
     this.props.addTransaction(this.state.transaction)
   }
 
@@ -21,6 +19,7 @@ class ExampleForm extends Component {
   }
 
   render() {
+    console.log(this.props)
     return(
       <Form onSubmit={this.handleSubmit}>
         <Form.Field onChange={this.handleChange}>
@@ -46,4 +45,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExampleForm);
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionForm);

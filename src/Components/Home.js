@@ -1,15 +1,43 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import ExampleForm from './ExampleForm'
-import BarChart from './BarChart.js'
+import TransactionForm from './TransactionForm';
+import BudgetForm from './BudgetForm';
+import BarChart from './BarChart.js';
+import { createBudgetAction } from '../Actions';
 
-const Home = props => {
-  return (
-    <Fragment>
-      <ExampleForm />
-      <BarChart />
-    </Fragment>
-  )
+class Home extends Component {
+
+  componentDidMount() {
+      fetch('http://localhost:3000/api/v1/budgets/1')
+        .then( res => res.json() )
+        .then( json => this.props.dispatch(createBudgetAction(json.value)))
+    }
+
+
+  render() {
+    console.log(this.props)
+    return (
+      <Fragment>
+        <TransactionForm />
+        <BudgetForm />
+        <BarChart />
+      </Fragment>
+    )
+  }
 }
 
-export default connect()(Home);
+const mapStateToProps = state => {
+  return {
+    value: state.budget.value,
+    budget: state.budget.budget
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setBudget: (value) => dispatch(createBudgetAction(value)),
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps)(Home);
