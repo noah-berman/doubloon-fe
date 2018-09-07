@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
-import Home from './Home.js'
-import NavBar from './NavBar.js'
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import Home from './Home.js';
+import NavBar from './NavBar.js';
+import ChartPage from './ChartPage.js';
+import BudgetPage from './BudgetPage.js';
 
 
 import '../Assets/css/App.css';
@@ -29,11 +31,19 @@ class App extends Component {
       .then( json => console.log(json) )
   }
 
+  state = {
+    currentPage: 'home'
+  }
+
   render() {
     return (
       <div className="App">
         <NavBar />
-        <Home />
+        <Switch>
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/charts" component={ChartPage} />
+          <Route exact path="/budget" component={BudgetPage} />
+        </Switch>
       </div>
     )
   }
@@ -45,7 +55,7 @@ function mapStateToProps(state){
   }
 }
 
-export default connect()(App);
+export default withRouter(connect()(App));
 
 // <Fragment>
 //   <NavBar />

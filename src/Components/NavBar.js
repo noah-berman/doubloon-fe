@@ -14,7 +14,7 @@ const NavBar = (props) => {
         <button onClick={() => props.handleClick('profiles')}>Profiles</button>
       */}
       <p>{props.counter}</p>
-      <NavLink activeClassName="active" exact to="/home">Home</NavLink>
+      <NavLink to="/home">Home</NavLink>
       <NavLink activeClassName="active" exact to="/budget">Budget</NavLink>
       <NavLink activeClassName="active" exact to="/charts">Charts</NavLink>
       <NavLink activeClassName="active" exact to="/logout">Logout</NavLink>
