@@ -2,7 +2,7 @@ const initialState = {
 
 };
 
-function UserReducer(state=initialState, action) {
+function chartsReducer(state=initialState, action) {
   switch (action.type) {
 
     default:
@@ -10,4 +10,4 @@ function UserReducer(state=initialState, action) {
   }
 }
 
-export default UserReducer;
+export default chartsReducer;

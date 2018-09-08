@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import Home from './Home.js';
-import NavBar from './NavBar.js';
-import ChartPage from './ChartPage.js';
-import BudgetPage from './BudgetPage.js';
+import Home from './Containers/Home.js';
+import NavBar from './Components/NavBar.js';
+import ChartPage from './Containers/ChartPage.js';
+import BudgetPage from './Containers/BudgetPage.js';
+import LoginForm from './Containers/LoginForm.js'
 
 
-import '../Assets/css/App.css';
+import './Assets/css/App.css';
 
 // App
 //   NavBar
@@ -40,6 +41,7 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <Switch>
+          <Route exact path="/login" component={LoginForm} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/charts" component={ChartPage} />
           <Route exact path="/budget" component={BudgetPage} />

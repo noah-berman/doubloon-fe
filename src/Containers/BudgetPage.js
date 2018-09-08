@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import TransactionTable from './TransactionTable.js';
+import withAuth from '../hocs/withAuth';
 
-class ChartPage extends Component {
+class BudgetPage extends Component {
 
 
   render() {
+    console.log(this.props)
     return (
       <Fragment>
-        <TransactionTable />
+        <p>Chart page!</p>
       </Fragment>
     )
   }
@@ -25,4 +26,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps)(ChartPage);
+export default withAuth(connect(mapStateToProps)(BudgetPage));

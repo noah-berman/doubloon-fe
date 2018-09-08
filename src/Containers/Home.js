@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import TransactionForm from './TransactionForm';
-import BudgetForm from './BudgetForm';
-import BarChart from './BarChart.js';
+import TransactionForm from '../Components/TransactionForm';
+import BudgetForm from '../Components/BudgetForm';
+import BarChart from '../Components/BarChart.js';
 import { createBudgetAction } from '../Actions';
+import withAuth from '../hocs/withAuth';
 
 class Home extends Component {
 
@@ -40,4 +41,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps)(Home);
+export default withAuth(connect(mapStateToProps)(Home));

@@ -5,7 +5,7 @@ const initialState = {
   budget: 0
 };
 
-function BudgetReducer(state=initialState, action) {
+function budgetsReducer(state=initialState, action) {
   switch (action.type) {
     case ADD_TRANSACTION:
       return {...state, value: parseInt(state.value) + parseInt(action.payload)};
@@ -16,4 +16,4 @@ function BudgetReducer(state=initialState, action) {
   }
 }
 
-export default BudgetReducer;
+export default budgetsReducer;

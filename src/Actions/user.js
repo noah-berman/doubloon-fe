@@ -1,6 +1,4 @@
-export * from './user'
-export * from './transaction'
-export * from './budget'
+import { SET_CURRENT_USER, AUTHENTICATING_USER } from './types';
 
 export const loginUser = (username, password) => {
   return dispatch => {
@@ -14,7 +12,6 @@ export const loginUser = (username, password) => {
       body: JSON.stringify({ user: { username, password } })
     })
       .then(response => response.json())
-      // {user: {}, jwt: 'lksjkljdlkjslkdfj'}
       .then(({ user, jwt }) => {
         localStorage.setItem('jwt', jwt)
         dispatch(setCurrentUser(user))
@@ -38,7 +35,7 @@ export const fetchCurrentUser = () => {
 }
 
 export const setCurrentUser = userData => ({
-  type: 'SET_CURRENT_USER',
+  type: SET_CURRENT_USER,
   payload: userData
 })
 
