@@ -27,9 +27,6 @@ import './Assets/css/App.css';
 class App extends Component {
 
   componentDidMount() {
-    fetch('http://localhost:3000/api/v1/budgets/1')
-      .then( res => res.json() )
-      .then( json => console.log(json) )
   }
 
   state = {
@@ -57,7 +54,7 @@ function mapStateToProps(state){
   }
 }
 
-export default withRouter(connect()(App));
+export default withRouter(connect(mapStateToProps)(App));
 
 // <Fragment>
 //   <NavBar />

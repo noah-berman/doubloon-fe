@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router'
+import { bindActionCreators } from 'redux'
 import { loginUser } from '../Actions/user'
 import { Button, Form, Segment, Message } from 'semantic-ui-react'
 
@@ -10,7 +11,7 @@ class LoginForm extends React.Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleLoginSubmit = () => {
-    this.props.loginUser(this.state.username, this.state.password, this.props.history)
+    this.props.loginUser(this.state.username, this.state.password)
     this.setState({ username: '', password: '' })
   }
 
@@ -59,9 +60,11 @@ const mapStateToProps = state => ({
   loggedIn: state.user.loggedIn
 })
 
+const mapDispatchToProps = (dispatch) => ({loginUser: bindActionCreators(loginUser, dispatch)})
+
 export default withRouter(
   connect(
     mapStateToProps,
-    { loginUser }
+    mapDispatchToProps
   )(LoginForm)
 )

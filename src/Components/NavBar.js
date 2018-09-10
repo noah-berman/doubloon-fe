@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const NavBar = (props) => {
-  console.log(props);
 
   return (
     <div className="navbar">
@@ -25,7 +24,7 @@ const NavBar = (props) => {
 
 function mapStateToProps(state) {
   return {
-    counter: state.counter,
+
   }
 }
 

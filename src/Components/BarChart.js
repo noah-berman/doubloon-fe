@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { addTransactionAction } from '../Actions';
 
 const BarChartContainer = (props) => {
-  console.log(props)
   let data = [
     {
       label: "firstLayer",

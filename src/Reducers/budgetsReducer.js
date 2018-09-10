@@ -1,16 +1,15 @@
-import { ADD_TRANSACTION, SET_BUDGET } from '../Actions/types';
+import { ADD_TRANSACTION, FETCH_USER_BUDGETS} from '../Actions/types';
 
 const initialState = {
-  value: 0,
-  budget: 0
+  userBudgets: null,
+  selectedBudget: null,
+  selectedBudgetValue: null,
 };
 
 function budgetsReducer(state=initialState, action) {
   switch (action.type) {
-    case ADD_TRANSACTION:
-      return {...state, value: parseInt(state.value) + parseInt(action.payload)};
-    case SET_BUDGET:
-      return {...state, budget: parseInt(action.payload)};
+    case FETCH_USER_BUDGETS:
+      return {...state, userBudgets: action.payload};
     default:
       return state;
   }

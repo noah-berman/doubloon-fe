@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import { createBudgetAction } from '../Actions';
+import { fetchUserBudgetAction } from '../Actions';
 
 class BudgetForm extends Component {
 
@@ -39,7 +39,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setBudget: (value) => dispatch(createBudgetAction(value)),
+    setBudget: (value) => dispatch(fetchUserBudgetAction(value)),
     dispatch
   }
 }

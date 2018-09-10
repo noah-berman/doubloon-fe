@@ -19,7 +19,6 @@ class TransactionForm extends Component {
   }
 
   render() {
-    console.log(this.props)
     return(
       <Form onSubmit={this.handleSubmit}>
         <Form.Field onChange={this.handleChange}>
