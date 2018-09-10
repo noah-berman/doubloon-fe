@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 class DropDownMenu extends Component {
 
   componentDidMount() {
-    console.log(this.props)
   }
 
   state = {
@@ -31,6 +30,10 @@ class DropDownMenu extends Component {
     }
   }
 
+  renderDropDownMenuButtons = (arr) => {
+    return arr.map ( el => <button key={el.id}> {el.title} </button> )
+  }
+
   render() {
     return (
       <div>
@@ -47,9 +50,7 @@ class DropDownMenu extends Component {
                   this.dropdownMenu = element;
                 }}
               >
-                <button> Menu item 1 </button>
-                <button> Menu item 2 </button>
-                <button> Menu item 3 </button>
+                {this.renderDropDownMenuButtons(this.props.budget)}
               </div>
             )
             : (
@@ -64,7 +65,7 @@ class DropDownMenu extends Component {
 const mapStateToProps = state => {
   return {
     userProps: state.user,
-    userBudget: state.budget.userBudget
+    budget: state.budget.userBudgets
   }
 }
 
