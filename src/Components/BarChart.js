@@ -39,7 +39,7 @@ const BarChartContainer = (props) => {
 function mapStateToProps(state){
   return {
     value: state.budget.value,
-    budget: state.budget.budget
+    budget: state.budget.selectedBudgetValue
   }
 }
 
