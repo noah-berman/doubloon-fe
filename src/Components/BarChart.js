@@ -9,7 +9,7 @@ const BarChartContainer = (props) => {
       label: "firstLayer",
       values: [
         { x: "SomethingA", y: props.budget },
-        { x: "SomethingB", y: props.value },
+        { x: "SomethingB", y: 4 },
         { x: "SomethingC", y: 3 }
       ]
     },
@@ -24,8 +24,8 @@ const BarChartContainer = (props) => {
   ];
   return (
     <React.Fragment>
-      <p>You have spent ${props.value} of your budget of ${props.budget}. <br />
-      You have ${props.budget - props.value} remaining.</p>
+      <p>You have spent ${props.transactionValue} of your budget of ${props.budget}. <br />
+      You have ${props.budget - props.transactionValue} remaining.</p>
       <BarChart
         data={data}
         width={400}
@@ -38,8 +38,8 @@ const BarChartContainer = (props) => {
 
 function mapStateToProps(state){
   return {
-    value: state.budget.value,
-    budget: state.budget.selectedBudgetValue
+    budget: state.budget.selectedBudgetValue,
+    transactionValue: state.transaction.totalTransactions
   }
 }
 
