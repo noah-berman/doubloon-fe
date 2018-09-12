@@ -14,7 +14,6 @@ class TransactionTable extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.transactions)
     if (this.props.transactions !== prevProps.transactions) {
       this.setState({data: this.props.transactions})
     }
@@ -42,7 +41,6 @@ class TransactionTable extends React.Component {
     );
   }
   render() {
-    console.log(this.props)
     const { data } = this.state;
     return (
       <div>

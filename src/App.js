@@ -41,10 +41,6 @@ class App extends Component {
     }
   }
 
-  state = {
-    currentPage: 'home'
-  }
-
   render() {
     return (
       <Router >

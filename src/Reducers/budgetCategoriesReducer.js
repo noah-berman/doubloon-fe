@@ -1,18 +1,23 @@
-import { ADD_TRANSACTION, SET_BUDGET, RESET } from '../Actions/types';
+import { SELECT_USER_BUDGET, SELECT_INITIAL_USER_BUDGET, FETCH_USER_BUDGETS, RESET } from '../Actions/types';
 
 const initialState = {
-  userBudgets: null,
   selectedBudget: null,
-  selectedBudgetValue: null,
+  selectedBudgetCategoriesIndex: null,
 };
 
 function budgetCategoriesReducer(state=initialState, action) {
   if (action.payload) {
   switch (action.type) {
-    case FETCH_BUDGETS:
-      return {...state, userBudgets: parseInt(state.value) + parseInt(action.payload)};
+    case SELECT_INITIAL_USER_BUDGET:
+      console.log(action.payload)
+      // return {...state, selectedBudgetId: action.payload[0].id, selectedBudgetName: action.payload[0].title, selectedBudgetValue: action.payload[0].value}
+    case FETCH_USER_BUDGETS:
+      console.log(action.payload)
+      // return {...state, userBudgets: action.payload};
+    case SELECT_USER_BUDGET:
+      console.log(action.payload)
+      // return {...state, selectedBudgetId: action.payload.id, selectedBudgetName: action.payload.title, selectedBudgetValue: action.payload.value}
     case RESET:
-      console.log('hitting reset reducer case');
       return initialState
     default:
       return state;
