@@ -1,4 +1,11 @@
-import { SET_CURRENT_USER, AUTHENTICATING_USER } from './types';
+import { SET_CURRENT_USER, AUTHENTICATING_USER, RESET } from './types';
+
+export const token = localStorage.getItem('jwt')
+
+export const logOutAction = () => {
+  console.log('hitting logout action')
+  return {type: RESET}
+}
 
 export const loginUser = (username, password) => {
   return dispatch => {
@@ -38,7 +45,7 @@ export const fetchCurrentUser = () => {
     fetch('http://localhost:3000/api/v1/authenticate', {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        'Authorization': `Bearer ${token}`
       }
     })
       .then(response => response.json())

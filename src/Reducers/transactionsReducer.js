@@ -1,18 +1,26 @@
-import { ADD_TRANSACTION, FETCH_USER_BUDGETS } from '../Actions/types';
+import { ADD_TRANSACTION, FETCH_TOTAL_TRANSACTIONS, RESET } from '../Actions/types';
 
 const initialState = {
-  userBudgets: null,
-  selectedBudget: null,
-  selectedBudgetValue: null,
+  totalTransactions: null,
+  totalTransactionsValue: null,
+  selectedTransactions: null,
+  selectedTransactionsValue: null
 };
 
 function transactionsReducer(state=initialState, action) {
-  switch (action.type) {
-    case FETCH_USER_BUDGETS:
-      return {...state, userBudgets: parseInt(state.value) + parseInt(action.payload)};
-    default:
-      return state;
-  }
+  if (action.payload) {
+    switch (action.type) {
+      case FETCH_TOTAL_TRANSACTIONS:
+          let val = 0;
+          action.payload.map( el => {val += el.value});
+          return {...state, totalTransactions: action.payload, totalTransactionsValue: val}
+      case RESET:
+        console.log('hitting reset reducer case');
+        return initialState
+      default:
+        return state;
+    }
+  } else {return state}
 }
 
 export default transactionsReducer;

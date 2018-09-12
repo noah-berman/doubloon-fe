@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchUserBudgetAction } from '../Actions';
+import { selectInitialUserBudgetAction, fetchTotalTransactionsAction, fetchUserBudgetAction } from '../Actions';
 import withAuth from '../hocs/withAuth';
 
 import TransactionForm from '../Components/TransactionForm';
@@ -12,7 +12,7 @@ import DropDownMenu from '../Components/DropDownMenu.js';
 class Home extends Component {
 
   componentDidMount() {
-    this.props.setBudget(this.props.user.id)
+
       // fetch('http://localhost:3000/api/v1/users/1')
       //   .then( res => res.json() )
       //   .then( json => console.log(json))
@@ -21,13 +21,12 @@ class Home extends Component {
 
 
   render() {
-    console.log(this.props)
     return (
       <Fragment>
         <DropDownMenu />
         <TransactionForm />
         <BudgetForm />
-        <BarChart />
+        <BarChart transactionValue={this.props.transactionValue}/>
       </Fragment>
     )
   }
@@ -36,13 +35,16 @@ class Home extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user.user,
-    budget: state.budget.userBudgets
+    budget: state.budget.userBudgets,
+    transactionValue: state.transaction.totalTransactionsValue
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setBudget: (userId) => dispatch(fetchUserBudgetAction(userId)),
+    setInitialBudget: (userId) => dispatch(selectInitialUserBudgetAction(userId)),
+    fetchTotalTransactions: (userId) => dispatch(fetchTotalTransactionsAction(userId)),
+    fetchUserBudget: (userId) => dispatch(fetchUserBudgetAction(userId)),
     dispatch
   }
 }

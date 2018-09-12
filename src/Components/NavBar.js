@@ -1,31 +1,39 @@
-import React from 'react'
+import React, { Component } from 'react'
 import '../Assets/css/NavBar.css';
 import { NavLink } from 'react-router-dom';
+import { logOutAction } from '../Actions'
 import { connect } from 'react-redux';
 
-const NavBar = (props) => {
+class NavBar extends Component {
 
-  return (
-    <div className="navbar">
-      {/*
-        <button onClick={() => props.handleClick('home')}>Home</button>
-        <button onClick={() => props.handleClick('facts')}>Facts</button>
-        <button onClick={() => props.handleClick('profiles')}>Profiles</button>
-      */}
-      <p>{props.counter}</p>
-      <NavLink to="/home">Home</NavLink>
-      <NavLink activeClassName="active" exact to="/budget">Budget</NavLink>
-      <NavLink activeClassName="active" exact to="/charts">Charts</NavLink>
-      <NavLink activeClassName="active" exact to="/logout">Logout</NavLink>
-    </div>
-  )
+  handleLogout = (event) => {
+    localStorage.removeItem('jwt');
+    this.props.logOut();
+  }
+
+  render() {
+    return (
+      <div className="navbar">
+        {/*
+          <button onClick={() => props.handleClick('home')}>Home</button>
+          <button onClick={() => props.handleClick('facts')}>Facts</button>
+          <button onClick={() => props.handleClick('profiles')}>Profiles</button>
+        */}
+        <NavLink to="/home">Home</NavLink>
+        <NavLink activeClassName="active" exact to="/budget">Budget</NavLink>
+        <NavLink activeClassName="active" exact to="/logout" onClick={this.handleLogout}>Logout</NavLink>
+      </div>
+    )
+  }
 }
 
 
-function mapStateToProps(state) {
+function mapDispatchToProps(dispatch) {
   return {
+    logOut: () => dispatch(logOutAction()),
+    dispatch
 
   }
 }
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapDispatchToProps)(NavBar);

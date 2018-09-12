@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectUserBudgetAction } from '../Actions'
+import { selectUserBudgetAction, fetchTotalTransactionsAction } from '../Actions'
 
 class DropDownMenu extends Component {
 
-  componentDidMount() {
-  }
 
   state = {
     showMenu: false,
@@ -21,8 +19,7 @@ class DropDownMenu extends Component {
   }
 
   closeMenu = (event) => {
-
-    if (!this.dropdownMenu.contains(event.target)) {
+    if (this.dropDownMenu && !this.dropdownMenu.contains(event.target)) {
 
       this.setState({ showMenu: false }, () => {
         document.removeEventListener('click', this.closeMenu);
@@ -38,6 +35,7 @@ class DropDownMenu extends Component {
   selectBudget = (event) => {
     console.log('Selecting User Budget with ID of ', event.target.id)
     this.props.selectUserBudget(event.target.id);
+    this.props.fetchTotalTransactions(event.target.id)
   }
 
   render() {
@@ -56,7 +54,7 @@ class DropDownMenu extends Component {
                   this.dropdownMenu = element;
                 }}
               >
-                {this.renderDropDownMenuButtons(this.props.budget)}
+                {this.renderDropDownMenuButtons(this.props.userBudgets)}
               </div>
             )
             : (
@@ -71,13 +69,14 @@ class DropDownMenu extends Component {
 const mapStateToProps = state => {
   return {
     userProps: state.user,
-    budget: state.budget.userBudgets
+    userBudgets: state.budget.userBudgets
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     selectUserBudget: (budgetId) => dispatch(selectUserBudgetAction(budgetId)),
+    fetchTotalTransactions: (budgetId) => dispatch(fetchTotalTransactionsAction(budgetId)),
     dispatch
   }
 }

@@ -1,20 +1,30 @@
 import React from "react";
 import { render } from "react-dom";
-import { makeData, Tips } from "./Utils";
 import { connect } from 'react-redux';
 // Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 class TransactionTable extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      data: makeData()
-    };
-    this.renderEditable = this.renderEditable.bind(this);
+
+  componentDidMount() {
+    if (this.props.transactions !== null) {
+      this.setState({data: this.props.transactions})
+    }
   }
-  renderEditable(cellInfo) {
+
+  componentDidUpdate(prevProps) {
+    console.log(this.props.transactions)
+    if (this.props.transactions !== prevProps.transactions) {
+      this.setState({data: this.props.transactions})
+    }
+  }
+
+    state = {
+      data: []
+    }
+
+  renderEditable = (cellInfo) => {
     return (
       <div
         style={{ backgroundColor: "#fafafa" }}
@@ -32,72 +42,44 @@ class TransactionTable extends React.Component {
     );
   }
   render() {
+    console.log(this.props)
     const { data } = this.state;
     return (
       <div>
+        <h1> Now displaying budget: {this.props.selectedBudgetName}</h1>
         <ReactTable
           data={data}
           columns={[
             {
-              Header: "First Name",
-              accessor: "firstName",
+              Header: "Transaction Value ($)",
+              accessor: "value",
               Cell: this.renderEditable
             },
             {
-              Header: "Last Name",
-              accessor: "lastName",
+              Header: "Transaction Description",
+              accessor: "description",
               Cell: this.renderEditable
             },
             {
-              Header: "Full Name",
-              id: "full",
-              accessor: d =>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: d.firstName + " " + d.lastName
-                  }}
-                />
+              Header: "Budget Category",
+              id: "budget_category_id",
+              Cell: this.renderEditable
             }
           ]}
           defaultPageSize={10}
           className="-striped -highlight"
         />
         <br />
-        <Tips />
       </div>
     );
   }
 }
 
-export default connect()(TransactionTable)
+function mapStateToProps(state) {
+  return {
+    transactions: state.transaction.totalTransactions,
+    selectedBudgetName: state.budget.selectedBudgetName
+  }
+}
 
-// import React, { Component, Fragment } from 'react';
-// import ReactTable from 'react-table';
-// import '../Assets/css/react-table.css';
-// import { connect } from 'react-redux';
-//
-// class BudgetPage extends Component {
-//
-//
-//   render() {
-//     console.log(this.props)
-//     return (
-//       <Fragment>
-//         <p>Chart page!</p>
-//       </Fragment>
-//     )
-//   }
-// }
-//
-// const mapStateToProps = state => {
-//   return {
-//   }
-// }
-//
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     dispatch
-//   }
-// }
-//
-// export default connect(mapStateToProps)(BudgetPage);
+export default connect(mapStateToProps)(TransactionTable)

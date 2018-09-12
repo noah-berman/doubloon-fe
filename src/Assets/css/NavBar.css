@@ -14,10 +14,10 @@
 }
 
 .navbar button:hover,
-.navbar a.active,
+/* .navbar a.active, */
 .navbar a:hover,
 .navbar a:hover {
-  background-color: aqua;
+  background-color: gold;
 }
 
 .navbar button:focus {

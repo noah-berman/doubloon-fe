@@ -1,4 +1,6 @@
-const defaultState = {
+import { RESET } from '../Actions/types'
+
+const initialState = {
   user: null,
   loggedIn: false,
   authenticatingUser: false,
@@ -6,7 +8,7 @@ const defaultState = {
   error: null
 }
 
-const usersReducer = (state=defaultState, action) => {
+const usersReducer = (state=initialState, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
       //action.payload {username: 'Chandler Bing', bio: 'my user bio', avatar: 'some image url'}
@@ -22,6 +24,9 @@ const usersReducer = (state=defaultState, action) => {
         error: action.payload,
         authenticatingUser: false
       }
+    case RESET:
+      console.log('hitting reset reducer case');
+      return initialState
     default:
       return state
   }

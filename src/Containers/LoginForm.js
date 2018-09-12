@@ -6,6 +6,11 @@ import { loginUser } from '../Actions/user'
 import { Button, Form, Segment, Message } from 'semantic-ui-react'
 
 class LoginForm extends React.Component {
+
+  componentDidMount() {
+    console.log('LoginForm mounting')
+  }
+
   state = { username: '', password: '' }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
@@ -16,9 +21,12 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    return this.props.loggedIn ? (
-      <Redirect to="/profile" />
-    ) : (
+    console.log(this.props.loggedIn)
+    return (
+      <div>
+      { this.props.loggedIn ?
+      <Redirect to="/home" />
+     :
       <Segment>
         <Form
           onSubmit={this.handleLoginSubmit}
@@ -47,7 +55,8 @@ class LoginForm extends React.Component {
           </Form.Group>
           <Button type="submit">Login</Button>
         </Form>
-      </Segment>
+      </Segment>}
+    </div>
     )
   }
 }
