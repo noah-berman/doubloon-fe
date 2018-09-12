@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { logOutAction } from '../Actions'
 import { connect } from 'react-redux';
 
-class NavBar extends Component {
+class AppNavBar extends Component {
 
   handleLogout = (event) => {
     localStorage.removeItem('jwt');
@@ -36,4 +36,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapDispatchToProps)(NavBar);
+export default connect(mapDispatchToProps)(AppNavBar);

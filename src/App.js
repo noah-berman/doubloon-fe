@@ -1,12 +1,7 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
+import React, { Component} from 'react';
 import { withRouter, BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { selectInitialUserBudgetAction, fetchTotalTransactionsAction, fetchUserBudgetAction} from './Actions'
-import Home from './Containers/Home.js';
-import NavBar from './Components/NavBar.js';
-import BudgetPage from './Containers/BudgetPage.js';
+import Main from './Containers/Main.js'
 import LoginForm from './Containers/LoginForm.js'
-import withAuth from './hocs/withAuth.js'
 import './Assets/css/App.css';
 
 // App
@@ -25,33 +20,13 @@ import './Assets/css/App.css';
 
 class App extends Component {
 
-  componentDidMount() {
-    this.props.setInitialBudget(this.props.user.id);
-    this.props.fetchUserBudget(this.props.user.id);
-    this.props.fetchTotalTransactions(this.props.user.id);
-
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.user !== prevProps.user) {
-      console.log(this.props)
-      this.props.setInitialBudget(this.props.user.id)
-      this.props.fetchUserBudget(this.props.user.id)
-      this.props.fetchTotalTransactions(this.props.user.id)
-    }
-  }
-
   render() {
     return (
       <Router >
         <div className="App">
-          <NavBar />
             <Switch>
               <Route exact path="/login" component={LoginForm} />
-              <Route exact path="/home" component={Home} />
-              <Route exact path="/budget" component={BudgetPage} />
-              <Route exact path="/logout" />
-              <Route exact path="/" component={Home} />
+              <Route path="/" component={Main} />
             </Switch>
           </div>
       </Router>
@@ -59,23 +34,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state){
-  return {
-    budget: state.budget.budget,
-    user: state.user.user
-  }
-}
 
-function mapDispatchToProps(dispatch) {
-  return {
-    setInitialBudget: (userId) => dispatch(selectInitialUserBudgetAction(userId)),
-    fetchTotalTransactions: (userId) => dispatch(fetchTotalTransactionsAction(userId)),
-    fetchUserBudget: (userId) => dispatch(fetchUserBudgetAction(userId)),
-    dispatch
-  }
-}
-
-export default withAuth(withRouter(connect(mapStateToProps, mapDispatchToProps)(App)));
+export default withRouter(App);
 
 // <Fragment>
 //   <NavBar />
