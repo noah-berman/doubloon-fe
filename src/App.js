@@ -1,7 +1,7 @@
-import React, { Component} from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter, BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Main from './Containers/Main.js'
-import LoginForm from './Containers/LoginForm.js'
+import LoginRegisterPage from './Containers/LoginRegisterPage.js'
 import './Assets/css/App.css';
 
 // App
@@ -20,15 +20,21 @@ import './Assets/css/App.css';
 
 class App extends Component {
 
+  routerLogic = () => {
+    if (localStorage.getItem('jwt')) {
+      console.log('yes JWT')
+      return <Route path="/" component={Main} />
+    } else {
+      return <Route path="/" component={LoginRegisterPage} />
+    }
+  }
+
   render() {
     return (
       <Router >
         <div className="App">
-            <Switch>
-              <Route exact path="/login" component={LoginForm} />
-              <Route path="/" component={Main} />
-            </Switch>
-          </div>
+          {this.routerLogic()}
+        </div>
       </Router>
     )
   }
@@ -36,6 +42,7 @@ class App extends Component {
 
 
 export default withRouter(App);
+
 
 // <Fragment>
 //   <NavBar />

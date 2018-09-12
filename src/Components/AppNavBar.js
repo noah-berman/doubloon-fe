@@ -21,7 +21,7 @@ class AppNavBar extends Component {
         */}
         <NavLink to="/home">Home</NavLink>
         <NavLink activeClassName="active" exact to="/budget">Budget</NavLink>
-        <NavLink activeClassName="active" exact to="/logout" onClick={this.handleLogout}>Logout</NavLink>
+        <NavLink activeClassName="active" exact to="/login" onClick={this.handleLogout}>Logout</NavLink>
       </div>
     )
   }

@@ -2,19 +2,22 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router'
 import { bindActionCreators } from 'redux'
-import { loginUser } from '../Actions/user'
+import { registerUser } from '../Actions/user'
 import { Button, Form, Segment, Message } from 'semantic-ui-react'
 
-class LoginForm extends React.Component {
+class RegisterForm extends React.Component {
 
+  componentDidMount() {
+    console.log('RegisterForm mounting')
+  }
 
-  state = { username: '', password: '' }
+  state = { name: '', username: '', password: '' }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
-  handleLoginSubmit = () => {
-    this.props.loginUser(this.state.username, this.state.password);
-    this.setState({ username: '', password: '' });
+  handleRegisterSubmit = () => {
+    this.props.registerUser(this.state.username, this.state.password)
+    this.setState({ name: '', username: '', password: '' })
   }
 
   render() {
@@ -25,14 +28,21 @@ class LoginForm extends React.Component {
      :
       <Segment>
         <Form
-          onSubmit={this.handleLoginSubmit}
+          onSubmit={this.handleRegisterSubmit}
           size="mini"
           key="mini"
           loading={this.props.authenticatingUser}
-          error={this.props.failedLogin}
+          error={this.props.failedRegister}
         >
-          <Message error header={this.props.failedLogin ? this.props.loginError.message : null} />
+          <Message error header={this.props.failedRegister ? this.props.RegisterError.message : null} />
           <Form.Group widths="equal">
+            <Form.Input
+              label="name"
+              placeholder="name"
+              name="name"
+              onChange={this.handleChange}
+              value={this.state.name}
+            />
             <Form.Input
               label="username"
               placeholder="username"
@@ -49,7 +59,7 @@ class LoginForm extends React.Component {
               value={this.state.password}
             />
           </Form.Group>
-          <Button type="submit">Login</Button>
+          <Button type="submit">Register</Button>
         </Form>
       </Segment>}
     </div>
@@ -59,17 +69,17 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = state => ({
   authenticatingUser: state.user.authenticatingUser,
-  failedLogin: state.user.failedLogin,
-  loginError: state.user.error,
+  failedRegister: state.user.failedLogin,
+  RegisterError: state.user.error,
   user: state.user.username,
   loggedIn: state.user.loggedIn
 })
 
-const mapDispatchToProps = (dispatch) => ({loginUser: bindActionCreators(loginUser, dispatch)})
+const mapDispatchToProps = (dispatch) => ({registerUser: bindActionCreators(registerUser, dispatch)})
 
 export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(LoginForm)
+  )(RegisterForm)
 )

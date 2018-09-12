@@ -63,13 +63,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withAuth(withRouter(connect(mapStateToProps, mapDispatchToProps)(Main)));
-
-// <Fragment>
-//   <NavBar />
-//   <Switch>
-//     <Route exact path="/" render={() => <Redirect to="/profile" />} />
-//     <Route exact path="/profile" component={Profile} />
-//     <Route exact path="/login" component={LoginForm} />
-//     <Route component={NotFound} />
-//   </Switch>
-// </Fragment>
