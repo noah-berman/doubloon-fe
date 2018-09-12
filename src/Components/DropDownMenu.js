@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectUserBudgetAction, fetchTotalTransactionsAction } from '../Actions'
+import { selectUserBudgetAction } from '../Actions'
 
 class DropDownMenu extends Component {
 
@@ -32,22 +32,12 @@ class DropDownMenu extends Component {
   }
 
   renderDropDownMenuButtons = (arr) => {
-    return arr.map ( el => <button onClick={this.handleBudgetSelection} key={el.id} id={el.id}> {el.title} </button> )
-  }
-
-  handleBudgetSelection = (event) => {
-    this.selectBudget(event);
-    this.fetchSpending(event);
+    return arr.map ( el => <button onClick={this.selectBudget} key={el.id} id={el.id}> {el.title} </button> )
   }
 
   selectBudget = (event) => {
     console.log('Selecting User Budget with ID of ', event.target.id)
     this.props.selectUserBudget(event.target.id);
-  }
-
-  fetchSpending = (event) => {
-    console.log('Fetching Spending from User Budget with ID of ', event.target.id)
-    this.props.fetchTotalTransactions(event.target.id)
   }
 
   render() {
@@ -81,15 +71,13 @@ class DropDownMenu extends Component {
 const mapStateToProps = state => {
   return {
     userProps: state.user,
-    budget: state.budget.userBudgets,
-    transaction: state.transaction.totalTransactions
+    budget: state.budget.userBudgets
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     selectUserBudget: (budgetId) => dispatch(selectUserBudgetAction(budgetId)),
-    fetchTotalTransactions: (budgetId) => dispatch(fetchTotalTransactionsAction(budgetId)),
     dispatch
   }
 }
