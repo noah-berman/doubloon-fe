@@ -26,8 +26,8 @@ class Home extends Component {
     return (
       <Fragment>
         <DropDownMenu />
+        <br />
         <TransactionForm />
-        <BudgetForm />
         <BarChart />
 
       </Fragment>

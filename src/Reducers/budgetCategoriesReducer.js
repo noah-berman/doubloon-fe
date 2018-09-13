@@ -11,7 +11,6 @@ function budgetCategoriesReducer(state=initialState, action) {
   switch (action.type) {
     case SELECT_INITIAL_USER_BUDGET:
       let initialArrIndex = action.payload[0].budget_categories.map(el => {return {id: el.id, title: el.title}})
-      console.log(initialArrIndex)
       return {...state, selectedBudgetCategoriesIndex: initialArrIndex};
     case SELECT_USER_BUDGET:
       let selectedArrIndex = action.payload.budget_categories.map(el => {return {id: el.id, title: el.title}})

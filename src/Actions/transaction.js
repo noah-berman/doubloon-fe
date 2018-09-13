@@ -3,9 +3,23 @@ import { ADD_TRANSACTION, FETCH_TOTAL_TRANSACTIONS, RESET} from './types';
 export const token = localStorage.getItem('jwt')
 
 export function addTransactionAction(value) {
-  return { type: ADD_TRANSACTION, payload: value}
+  console.log(value)
+  return (dispatch) => {
+    // dispatch({type: START_FETCHING_BUDGET_REQUEST});
+    return fetch('http://localhost:3000/api/v1/transactions',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(value)
+      }
+    ).then( res => res.json() )
+    .then( json => dispatch({type: ADD_TRANSACTION, payload: json}))
+  }
 }
-
 
 
 export const fetchTotalTransactionsAction = (id) => {

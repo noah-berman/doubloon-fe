@@ -3,7 +3,7 @@ import { withRouter, BrowserRouter as Router, Route, Switch, Redirect } from 're
 import Main from './Containers/Main.js'
 import LoginRegisterPage from './Containers/LoginRegisterPage.js'
 import './Assets/css/App.css';
-
+import Header from './Components/Header.js'
 // App
 //   NavBar
 //   Login - ROUTE: /login
@@ -32,6 +32,7 @@ class App extends Component {
     return (
       <Router >
         <div className="App">
+          <Header />
           {this.routerLogic()}
         </div>
       </Router>

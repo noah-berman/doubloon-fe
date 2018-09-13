@@ -10,12 +10,14 @@ const initialState = {
 function transactionsReducer(state=initialState, action) {
   if (action.payload) {
     switch (action.type) {
+      case ADD_TRANSACTION:
+        state.totalTransactions.unshift(action.payload.transaction)
+        return {...state, totalTransactions: state.totalTransactions}
       case FETCH_TOTAL_TRANSACTIONS:
-          let val = 0;
-          action.payload.map( el => {val += el.value});
-          return {...state, totalTransactions: action.payload, totalTransactionsValue: val}
+        let val = 0;
+        action.payload.map( el => {val += el.value});
+        return {...state, totalTransactions: action.payload, totalTransactionsValue: val}
       case RESET:
-        console.log('hitting reset reducer case');
         return initialState
       default:
         return state;

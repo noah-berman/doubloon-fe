@@ -24,6 +24,8 @@ class LoginForm extends React.Component {
       <Redirect to="/home" />
      :
       <Segment>
+        <h2> Welcome to Doubloon </h2>
+        <h4> please login below</h4>
         <Form
           onSubmit={this.handleLoginSubmit}
           size="mini"

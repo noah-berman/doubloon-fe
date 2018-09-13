@@ -10,12 +10,37 @@ class TransactionForm extends Component {
   }
 
 
+  findBudgetCategoryId = (budgetCategoryStr) => {
+    console.log('budget category str', budgetCategoryStr)
+    let matchedBudgetCategory = this.props.selectedBudgetCategoryIndex.find( obj => {
+      return obj.title === budgetCategoryStr
+    })
+    return matchedBudgetCategory.id
+  }
+
+  inputParse = (val, inputLength) => {
+    if (inputLength < 3) {
+      return {
+        value: val[0],
+        description: val[1],
+        budget_category_id: 1,
+      }
+    } else if (inputLength === 3){
+      return {
+        value: val[0],
+        description: val[1],
+        budget_category_id: this.findBudgetCategoryId(val[2])
+      }
+    } else {null}
+  }
 
   handleSubmit = (event) => {
-    let input = this.state.transaction.split(' ');
-    console.log(input)
-    // this.props.addTransaction(this.state.transaction)
-    this.setState({ transaction: "" })
+    let inputArr = this.state.transaction.split(' ');
+    this.props.addTransaction(this.inputParse(inputArr, inputArr.length));
+    this.setState({
+      transaction: ''
+    })
+    window.location.reload();
   }
 
   handleChange = (event) => {
@@ -42,7 +67,7 @@ class TransactionForm extends Component {
 }
 function mapStateToProps(state) {
   return {
-    value: state.value
+    selectedBudgetCategoryIndex: state.budgetCategory.selectedBudgetCategoriesIndex,
   }
 }
 
