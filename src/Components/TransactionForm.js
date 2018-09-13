@@ -10,7 +10,7 @@ class TransactionForm extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
+    this.setState({ transaction: "" })
     this.props.addTransaction(this.state.transaction)
   }
 
@@ -21,9 +21,14 @@ class TransactionForm extends Component {
   render() {
     return(
       <Form onSubmit={this.handleSubmit}>
-        <Form.Field onChange={this.handleChange}>
+        <Form.Field >
           <label>Enter Budget Transaction</label>
-          <input placeholder='Transaction' type="number" name="transaction" />
+            <Form.Input
+              placeholder="Enter Transaction"
+              name="transaction"
+              onChange={this.handleChange}
+              value={this.state.transaction}
+            />
         </Form.Field>
 
       </Form>

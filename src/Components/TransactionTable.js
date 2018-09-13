@@ -14,6 +14,7 @@ class TransactionTable extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log(this.props)
     if (this.props.transactions !== prevProps.transactions) {
       this.setState({data: this.props.transactions})
     }
@@ -24,12 +25,13 @@ class TransactionTable extends React.Component {
     }
 
   renderEditable = (cellInfo) => {
+    console.log(cellInfo)
     return (
       <div
-        style={{ backgroundColor: "#fafafa" }}
         contentEditable
         suppressContentEditableWarning
         onBlur={e => {
+          console.log('blur', e.target)
           const data = [...this.state.data];
           data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
           this.setState({ data });
