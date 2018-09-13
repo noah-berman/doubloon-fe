@@ -14,10 +14,22 @@ class TransactionTable extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props)
-    if (this.props.transactions !== prevProps.transactions) {
-      this.setState({data: this.props.transactions})
+    if (this.props !== prevProps && this.props.transactions && this.props.selectedBudgetCategoryIndex) {
+      this.setState({data: this.props.transactions.map( el => {
+        let newObj = {}
+
+        this.props.selectedBudgetCategoryIndex.forEach( el2 => {
+          if (el2.id == el.budget_category_id) {
+            newObj = {budget_category_name: el2.title}
+          } else {null}
+        })
+
+        return Object.assign(newObj, el)
+      })
+    })
+      // this.setState({data: this.props.transactions})
     }
+    console.log(this.state.data)
   }
 
     state = {
@@ -25,7 +37,6 @@ class TransactionTable extends React.Component {
     }
 
   renderEditable = (cellInfo) => {
-    console.log(cellInfo)
     return (
       <div
         contentEditable
@@ -62,7 +73,7 @@ class TransactionTable extends React.Component {
             },
             {
               Header: "Budget Category",
-              id: "budget_category_id",
+              id: "budget_category_name",
               Cell: this.renderEditable
             }
           ]}
@@ -78,7 +89,8 @@ class TransactionTable extends React.Component {
 function mapStateToProps(state) {
   return {
     transactions: state.transaction.totalTransactions,
-    selectedBudgetName: state.budget.selectedBudgetName
+    selectedBudgetName: state.budget.selectedBudgetName,
+    selectedBudgetCategoryIndex: state.budgetCategory.selectedBudgetCategoriesIndex
   }
 }
 

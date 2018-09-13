@@ -22,7 +22,6 @@ class App extends Component {
 
   routerLogic = () => {
     if (localStorage.getItem('jwt')) {
-      console.log('yes JWT')
       return <Route path="/" component={Main} />
     } else {
       return <Route path="/" component={LoginRegisterPage} />

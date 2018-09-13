@@ -19,6 +19,7 @@ export const fetchUserBudgetAction = (id) => {
 }
 
 export const selectUserBudgetAction = (id) => {
+  console.log('selecting user budget action')
   return (dispatch) => {
   // dispatch({type: START_FETCHING_BUDGET_REQUEST});
     return fetch(`http://localhost:3000/api/v1/budgets/${id}`,

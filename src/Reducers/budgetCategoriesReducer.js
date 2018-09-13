@@ -3,17 +3,20 @@ import { SELECT_USER_BUDGET, SELECT_INITIAL_USER_BUDGET, FETCH_USER_BUDGETS, RES
 const initialState = {
   selectedBudget: null,
   selectedBudgetCategoriesIndex: null,
+  budgetCategoriesAndTransactions: null,
 };
 
 function budgetCategoriesReducer(state=initialState, action) {
   if (action.payload) {
   switch (action.type) {
     case SELECT_INITIAL_USER_BUDGET:
-      // return {...state, selectedBudgetId: action.payload[0].id, selectedBudgetName: action.payload[0].title, selectedBudgetValue: action.payload[0].value}
-    case FETCH_USER_BUDGETS:
-      // return {...state, userBudgets: action.payload};
+      let initialArrIndex = action.payload[0].budget_categories.map(el => {return {id: el.id, title: el.title}})
+      console.log(initialArrIndex)
+      return {...state, selectedBudgetCategoriesIndex: initialArrIndex};
     case SELECT_USER_BUDGET:
-      // return {...state, selectedBudgetId: action.payload.id, selectedBudgetName: action.payload.title, selectedBudgetValue: action.payload.value}
+      let selectedArrIndex = action.payload.budget_categories.map(el => {return {id: el.id, title: el.title}})
+      console.log(selectedArrIndex)
+      return {...state, selectedBudgetCategoriesIndex: selectedArrIndex}
     case RESET:
       return initialState
     default:

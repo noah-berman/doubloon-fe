@@ -13,8 +13,9 @@ import withAuth from '../hocs/withAuth.js'
 class Main extends Component {
 
   componentDidMount() {
+    console.log(this.props.budgetCategory)
     console.log('mounting')
-    this.props.setInitialBudget(this.props.user.id);
+    this.props.selectInitialBudget(this.props.user.id);
     this.props.fetchUserBudget(this.props.user.id);
     this.props.fetchTotalTransactions(this.props.user.id);
 
@@ -23,7 +24,7 @@ class Main extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.user !== prevProps.user) {
       console.log(this.props)
-      this.props.setInitialBudget(this.props.user.id)
+      this.props.selectInitialBudget(this.props.user.id)
       this.props.fetchUserBudget(this.props.user.id)
       this.props.fetchTotalTransactions(this.props.user.id)
     }
@@ -49,13 +50,14 @@ class Main extends Component {
 function mapStateToProps(state){
   return {
     budget: state.budget.budget,
-    user: state.user.user
+    user: state.user.user,
+    budgetCategory: state.budgetCategory.selectedBudgetCategoriesIndex
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setInitialBudget: (userId) => dispatch(selectInitialUserBudgetAction(userId)),
+    selectInitialBudget: (userId) => dispatch(selectInitialUserBudgetAction(userId)),
     fetchTotalTransactions: (userId) => dispatch(fetchTotalTransactionsAction(userId)),
     fetchUserBudget: (userId) => dispatch(fetchUserBudgetAction(userId)),
     dispatch

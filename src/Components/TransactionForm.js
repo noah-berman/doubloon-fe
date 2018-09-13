@@ -9,9 +9,13 @@ class TransactionForm extends Component {
     transaction: ""
   }
 
+
+
   handleSubmit = (event) => {
+    let input = this.state.transaction.split(' ');
+    console.log(input)
+    // this.props.addTransaction(this.state.transaction)
     this.setState({ transaction: "" })
-    this.props.addTransaction(this.state.transaction)
   }
 
   handleChange = (event) => {

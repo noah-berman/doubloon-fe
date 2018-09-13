@@ -26,4 +26,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withAuth(connect(mapStateToProps)(BudgetPage));
+export default connect(mapStateToProps)(BudgetPage);

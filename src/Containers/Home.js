@@ -7,6 +7,7 @@ import withAuth from '../hocs/withAuth';
 import TransactionForm from '../Components/TransactionForm';
 import BudgetForm from '../Components/BudgetForm';
 import BarChart from '../Components/BarChart.js';
+import PieChart from '../Components/PieChart.js';
 import DropDownMenu from '../Components/DropDownMenu.js';
 
 class Home extends Component {
@@ -27,7 +28,8 @@ class Home extends Component {
         <DropDownMenu />
         <TransactionForm />
         <BudgetForm />
-        <BarChart transactionValue={this.props.transactionValue}/>
+        <BarChart />
+
       </Fragment>
     )
   }
@@ -50,4 +52,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withAuth(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
