@@ -57,6 +57,9 @@ class TransactionForm extends Component {
               name="transaction"
               onChange={this.handleChange}
               value={this.state.transaction}
+              width="200px"
+              height="200px"
+              font-size="80%"
             />
         </Form.Field>
 

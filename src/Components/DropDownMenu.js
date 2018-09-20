@@ -19,14 +19,16 @@ class DropDownMenu extends Component {
   }
 
   closeMenu = (event) => {
-    if (this.dropDownMenu && !this.dropdownMenu.contains(event.target)) {
+    // console.log('closing menu', this.state.showMenu)
+    // console.log(this.dropDownMenu)
+    // if (this.dropDownMenu && !this.dropdownMenu.contains(event.target)) {
 
       this.setState({ showMenu: false }, () => {
         document.removeEventListener('click', this.closeMenu);
       });
 
     }
-  }
+
 
   renderDropDownMenuButtons = (arr) => {
     return arr.map ( el => <button onClick={this.selectBudget} key={el.id} id={el.id}> {el.title} </button> )

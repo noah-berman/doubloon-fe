@@ -2,6 +2,13 @@ import React, { Component, Fragment } from "react";
 import {Pie} from 'react-chartjs-2';
 import { connect } from 'react-redux';
 
+function random_rgba() {
+    var o = Math.round, r = Math.random, s = 255;
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+}
+
+var color = random_rgba();
+
 class PieChart extends Component {
 
   state = {
@@ -44,11 +51,18 @@ class PieChart extends Component {
       return(
          <div>
             <Pie
-              data={this.state.Data}
+              data={this.props.Data}
               options={{maintainAspectRatio: false}}/>
          </div>
       )
    }
+}
+
+function mapStateToProps(state) {
+  return {
+    Data:
+  }
+
 }
 
 export default connect()(PieChart)

@@ -16,7 +16,7 @@ class RegisterForm extends React.Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleRegisterSubmit = () => {
-    this.props.registerUser(this.state.username, this.state.password)
+    this.props.registerUser(this.state.name, this.state.username, this.state.password)
     this.setState({ name: '', username: '', password: '' })
   }
 
@@ -27,6 +27,8 @@ class RegisterForm extends React.Component {
       <Redirect to="/home" />
      :
       <Segment>
+        <h2> Welcome to Doubloon </h2>
+        <h4> please register below</h4>
         <Form
           onSubmit={this.handleRegisterSubmit}
           size="mini"
