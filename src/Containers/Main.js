@@ -13,8 +13,6 @@ import withAuth from '../hocs/withAuth.js'
 class Main extends Component {
 
   componentDidMount() {
-    console.log(this.props.budgetCategory)
-    console.log('mounting')
     this.props.selectInitialBudget(this.props.user.id);
     this.props.fetchUserBudget(this.props.user.id);
     this.props.fetchTotalTransactions(this.props.user.id);

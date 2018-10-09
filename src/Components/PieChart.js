@@ -60,7 +60,7 @@ class PieChart extends Component {
 
 function mapStateToProps(state) {
   return {
-    Data:
+
   }
 
 }

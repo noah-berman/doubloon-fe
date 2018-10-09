@@ -8,7 +8,6 @@ import "react-table/react-table.css";
 class TransactionTable extends React.Component {
 
   componentDidMount() {
-    console.log(this.props.transactions)
     if (this.props.transactions && this.props.selectedBudgetCategoryIndex) {
 
       this.setState({
@@ -55,6 +54,7 @@ class TransactionTable extends React.Component {
   renderEditable = (cellInfo) => {
     return (
       <div
+        id={cellInfo.original.id}
         contentEditable
         suppressContentEditableWarning
         onBlur={e => {

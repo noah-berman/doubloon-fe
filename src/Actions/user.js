@@ -67,6 +67,8 @@ export const loginUser = (username, password) => {
         localStorage.setItem('jwt', jwt)
         dispatch(setCurrentUser(user))
       })
+    .then(res => console.log(res))
+    .then(setTimeout(function reload(){window.location.reload()}, 100))
     }
   }
 
