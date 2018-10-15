@@ -1,49 +1,41 @@
 import React from "react";
 import { render } from "react-dom";
 import { connect } from 'react-redux';
+import { updateTransaction } from '../Actions'
 // Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
+
 class TransactionTable extends React.Component {
+
+  //state gets set to generated transaction objects
+  updateState() {
+    this.setState({
+      data: this.props.transactions.map( el => {
+        let newObj = {}
+
+        this.props.selectedBudgetCategoryIndex.forEach( el2 => {
+          if (el2.id == el.budget_category_id) {
+            let stringifiedDate = (new Date(el.created_at)).toString(); //converting transaction time into format to pass to cell
+            newObj = {budget_category_name: el2.title, displayTime: stringifiedDate }
+          } else {null}
+        })
+
+        return Object.assign(newObj, el)
+      }).reverse()
+    })
+  }
 
   componentDidMount() {
     if (this.props.transactions && this.props.selectedBudgetCategoryIndex) {
-
-      this.setState({
-        data: this.props.transactions.map( el => {
-          let newObj = {}
-
-          this.props.selectedBudgetCategoryIndex.forEach( el2 => {
-            if (el2.id == el.budget_category_id) {
-              let stringifiedDate = (new Date(el.created_at)).toString();
-              newObj = {budget_category_name: el2.title, displayTime: stringifiedDate }
-            } else {null}
-          })
-
-          return Object.assign(newObj, el)
-        }).reverse()
-      })
+      this.updateState()
     }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps && this.props.transactions && this.props.selectedBudgetCategoryIndex) {
-
-      this.setState({
-        data: this.props.transactions.map( el => {
-          let newObj = {}
-
-          this.props.selectedBudgetCategoryIndex.forEach( el2 => {
-            if (el2.id == el.budget_category_id) {
-              let stringifiedDate = (new Date(el.created_at)).toString();
-              newObj = {budget_category_name: el2.title, displayTime: stringifiedDate }
-            } else {null}
-          })
-
-          return Object.assign(newObj, el)
-        }).reverse()
-      })
+      this.updateState()
     }
   }
 
@@ -115,4 +107,12 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(TransactionTable)
+function mapDispatchToProps(dispatch) {
+  return {
+    updateTransaction: () => dispatch(updateTransaction()),
+    dispatch
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionTable)

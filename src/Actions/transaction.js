@@ -38,6 +38,8 @@ export const fetchTotalTransactionsAction = (id) => {
   }
 }
 
+export function updateTransaction() {}
+
 export function logOutAction() {
   return { type : RESET }
 }
