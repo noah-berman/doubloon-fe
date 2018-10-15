@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { connect } from 'react-redux';
-import { updateTransaction } from '../Actions'
+import { updateTransactionAction, fetchUserBudgetAction } from '../Actions'
 // Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
@@ -50,10 +50,13 @@ class TransactionTable extends React.Component {
         contentEditable
         suppressContentEditableWarning
         onBlur={e => {
-          console.log('blur', e.target)
+          console.log("cellInfo.column.id", cellInfo.column.id)
+          console.log(typeof cellInfo.original.id)
+          console.log(e.target)
           const data = [...this.state.data];
           data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
           this.setState({ data });
+          this.props.updateTransaction({id: cellInfo.original.id, columnName: cellInfo.column.id, newValue: e.target.innerHTML})
         }}
         dangerouslySetInnerHTML={{
           __html: this.state.data[cellInfo.index][cellInfo.column.id]
@@ -61,6 +64,17 @@ class TransactionTable extends React.Component {
       />
     );
   }
+
+  renderUneditable = (cellInfo) => {
+    return (
+      <div
+        dangerouslySetInnerHTML={{
+          __html: this.state.data[cellInfo.index][cellInfo.column.id]
+        }}
+      />
+    );
+  }
+
   render() {
     const { data } = this.state;
     return (
@@ -85,9 +99,9 @@ class TransactionTable extends React.Component {
               Cell: this.renderEditable
             },
             {
-              Header: "Time",
+              Header: "Time / Last Updated",
               id: "displayTime",
-              Cell: this.renderEditable
+              Cell: this.renderUneditable
             }
           ]}
           defaultPageSize={10}
@@ -107,11 +121,12 @@ function mapStateToProps(state) {
   }
 }
 
+// transactionId, columnName, newValue
+
 function mapDispatchToProps(dispatch) {
   return {
-    updateTransaction: () => dispatch(updateTransaction()),
+    updateTransaction: (updateArgs) => dispatch(updateTransactionAction(updateArgs)),
     dispatch
-
   }
 }
 
