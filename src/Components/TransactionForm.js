@@ -11,7 +11,6 @@ class TransactionForm extends Component {
 
 
   findBudgetCategoryId = (budgetCategoryStr) => {
-    console.log('budget category str', budgetCategoryStr)
     let matchedBudgetCategory = this.props.selectedBudgetCategoryIndex.find( obj => {
       return obj.title.toLowerCase() === budgetCategoryStr.toLowerCase()
     })

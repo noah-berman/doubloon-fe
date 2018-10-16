@@ -3,12 +3,10 @@ import { SET_CURRENT_USER, AUTHENTICATING_USER, RESET } from './types';
 export const token = localStorage.getItem('jwt')
 
 export const logOutAction = () => {
-  console.log('hitting logout action')
   return {type: RESET}
 }
 
 export const registerUser = (username, password) => {
-  console.log('registering user!');
   // return dispatch => {
   //   dispatch(authenticatingUser())
   //   fetch(`http://localhost:3000/api/v1/login`,
@@ -67,7 +65,6 @@ export const loginUser = (username, password) => {
         localStorage.setItem('jwt', jwt)
         dispatch(setCurrentUser(user))
       })
-    .then(res => console.log(res))
     .then(setTimeout(function reload(){window.location.reload()}, 100))
     }
   }

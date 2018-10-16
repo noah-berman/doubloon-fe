@@ -18,7 +18,6 @@ function budgetsReducer(state=initialState, action) {
       case SELECT_USER_BUDGET:
         return {...state, selectedBudgetId: action.payload.id, selectedBudgetName: action.payload.title, selectedBudgetValue: action.payload.value}
       case RESET:
-        console.log('hitting reset reducer case');
         return initialState
       default:
         return state;

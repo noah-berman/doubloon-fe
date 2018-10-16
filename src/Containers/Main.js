@@ -21,7 +21,6 @@ class Main extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.user !== prevProps.user) {
-      console.log(this.props)
       this.props.selectInitialBudget(this.props.user.id)
       this.props.fetchUserBudget(this.props.user.id)
       this.props.fetchTotalTransactions(this.props.user.id)

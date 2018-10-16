@@ -50,12 +50,10 @@ export function updateTransactionAction(updateArgs) {
       body: JSON.stringify({[columnName]: newValue})
     }
 
-  console.log(fetchBody)
 
   return (dispatch) => {
     return fetch(`http://localhost:3000/api/v1/transactions/${id}`, fetchBody)
       .then( res => res.json() )
-      .then( json => console.log(json) )
       .then( json => dispatch({type: FETCH_TOTAL_TRANSACTIONS, payload: json}) )
     }
   }

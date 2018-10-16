@@ -8,7 +8,6 @@ import { Button, Form, Segment, Message } from 'semantic-ui-react'
 class RegisterForm extends React.Component {
 
   componentDidMount() {
-    console.log('RegisterForm mounting')
   }
 
   state = { name: '', username: '', password: '' }

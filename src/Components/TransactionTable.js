@@ -62,9 +62,6 @@ class TransactionTable extends React.Component {
         contentEditable
         suppressContentEditableWarning
         onBlur={e => {
-          console.log("cellInfo.column.id", cellInfo.column.id)
-          console.log(typeof cellInfo.original.id)
-          console.log(e.target)
           const data = [...this.state.data];
           data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
           this.updateState({ data });

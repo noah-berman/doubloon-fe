@@ -25,7 +25,6 @@ const usersReducer = (state=initialState, action) => {
         authenticatingUser: false
       }
     case RESET:
-      console.log('hitting reset reducer case');
       return initialState
     default:
       return state

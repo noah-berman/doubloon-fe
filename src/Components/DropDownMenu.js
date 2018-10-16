@@ -35,7 +35,6 @@ class DropDownMenu extends Component {
   }
 
   selectBudget = (event) => {
-    console.log('Selecting User Budget with ID of ', event.target.id)
     this.props.selectUserBudget(event.target.id);
     this.props.fetchTotalTransactions(event.target.id)
   }
