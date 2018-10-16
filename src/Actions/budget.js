@@ -51,6 +51,26 @@ export const selectInitialUserBudgetAction = (id) => {
   }
 }
 
+export const createBudgetCategoryAction = ({title, budgetId}) => {
+  let fetchBody = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      "Content-Type": 'application/json'
+    },
+    body: JSON.stringify({'title': title, 'budget_id': budgetId})
+  }
+
+  console.log(fetchBody)
+
+  return (dispatch) => {
+  // dispatch({type: START_FETCHING_BUDGET_REQUEST});
+    return fetch(`http://localhost:3000/api/v1/budget_categories`, fetchBody)
+    .then( res => res.json() )
+  }
+}
+
 export function logOutAction() {
   return { type : RESET }
 }

@@ -2,8 +2,7 @@ import { SELECT_USER_BUDGET, SELECT_INITIAL_USER_BUDGET, FETCH_USER_BUDGETS, RES
 
 const initialState = {
   selectedBudget: null,
-  selectedBudgetCategoriesIndex: null,
-  budgetCategoriesAndTransactions: null,
+  selectedBudgetCategoriesIndex: null
 };
 
 function budgetCategoriesReducer(state=initialState, action) {

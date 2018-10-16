@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { connect } from 'react-redux';
-import { updateTransactionAction, fetchUserBudgetAction } from '../Actions'
+import { updateTransactionAction, fetchUserBudgetAction, createBudgetCategoryAction } from '../Actions'
 // Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
@@ -9,7 +9,7 @@ import "react-table/react-table.css";
 
 class TransactionTable extends React.Component {
 
-  //state gets set to generated transaction objects
+  //transaction objects get set to state
   updateState() {
     this.setState({
       data: this.props.transactions.map( el => {
@@ -43,6 +43,18 @@ class TransactionTable extends React.Component {
       data: []
     }
 
+  findBudgetCategoryId = (budgetCategoryStr) => {
+    try {
+      let matchedBudgetCategory = this.props.selectedBudgetCategoryIndex.find( obj => {
+        return obj.title.toLowerCase() === budgetCategoryStr.toLowerCase()
+      })
+      return matchedBudgetCategory.id
+    }
+    catch (e) {
+      return null
+    }
+  }
+
   renderEditable = (cellInfo) => {
     return (
       <div
@@ -55,14 +67,28 @@ class TransactionTable extends React.Component {
           console.log(e.target)
           const data = [...this.state.data];
           data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
-          this.setState({ data });
-          this.props.updateTransaction({id: cellInfo.original.id, columnName: cellInfo.column.id, newValue: e.target.innerHTML})
+          this.updateState({ data });
+          this.handleUpdateTransaction({id: cellInfo.original.id, columnName: cellInfo.column.id, newValue: e.target.innerHTML})
         }}
         dangerouslySetInnerHTML={{
           __html: this.state.data[cellInfo.index][cellInfo.column.id]
         }}
       />
     );
+  }
+
+  handleUpdateTransaction = (updateArgs) => {
+    if (updateArgs.columnName !== 'budget_category_name' ) {
+      this.props.updateTransaction(updateArgs)
+    } else {
+      if (!this.findBudgetCategoryId(updateArgs.newValue)) {
+        this.props.createBudgetCategory({title: updateArgs.newValue, budgetId: this.props.selectedBudgetId})
+        .then( json => this.props.updateTransaction( Object.assign( updateArgs, {columnName: 'budget_category_id', newValue: json.budget_category.id} ) ) )
+      } else {
+        let budgetCategoryId = this.findBudgetCategoryId(updateArgs.newValue)
+        this.props.updateTransaction(Object.assign(updateArgs, {columnName: 'budget_category_id', newValue: budgetCategoryId}))
+      }
+    }
   }
 
   renderUneditable = (cellInfo) => {
@@ -117,6 +143,7 @@ function mapStateToProps(state) {
   return {
     transactions: state.transaction.totalTransactions,
     selectedBudgetName: state.budget.selectedBudgetName,
+    selectedBudgetId: state.budget.selectedBudgetId,
     selectedBudgetCategoryIndex: state.budgetCategory.selectedBudgetCategoriesIndex
   }
 }
@@ -126,6 +153,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateTransaction: (updateArgs) => dispatch(updateTransactionAction(updateArgs)),
+    createBudgetCategory: ({title, budgetId}) => dispatch(createBudgetCategoryAction({title, budgetId})),
     dispatch
   }
 }
