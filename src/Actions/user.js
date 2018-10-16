@@ -65,7 +65,7 @@ export const loginUser = (username, password) => {
         localStorage.setItem('jwt', jwt)
         dispatch(setCurrentUser(user))
       })
-    .then(setTimeout(function reload(){window.location.reload()}, 100))
+    .then(setTimeout(function reload(){window.location.reload()}, 100)) //**TODO** come up with a better way to get the page to refresh to "home" once authed that doesn't require a timeout
     }
   }
 

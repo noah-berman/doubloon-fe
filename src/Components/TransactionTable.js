@@ -9,6 +9,10 @@ import "react-table/react-table.css";
 
 class TransactionTable extends React.Component {
 
+
+  //**TODO** Add a data field to each transaction (stored in backend and referenceable in state)
+  // that toggles between showing Last Updated and Created in the table
+
   //transaction objects get set to state
   updateState() {
     this.setState({
@@ -39,9 +43,9 @@ class TransactionTable extends React.Component {
     }
   }
 
-    state = {
-      data: []
-    }
+  state = {
+    data: []
+  }
 
   findBudgetCategoryId = (budgetCategoryStr) => {
     try {
@@ -75,19 +79,23 @@ class TransactionTable extends React.Component {
   }
 
   handleUpdateTransaction = (updateArgs) => {
-    if (updateArgs.columnName !== 'budget_category_name' ) {
-      this.props.updateTransaction(updateArgs)
-    } else {
-      if (!this.findBudgetCategoryId(updateArgs.newValue)) {
-        this.props.createBudgetCategory({title: updateArgs.newValue, budgetId: this.props.selectedBudgetId})
-        .then( json => this.props.updateTransaction( Object.assign( updateArgs, {columnName: 'budget_category_id', newValue: json.budget_category.id} ) ) )
-      } else {
+    if (updateArgs.columnName !== 'budget_category_name' ) { //If editing any data field except the budget category name
+      this.props.updateTransaction(updateArgs) //update transaction as normal
+    }
+    else {
+
+      if (!this.findBudgetCategoryId(updateArgs.newValue)) { //if editing budget category and its ID is undefined or doesn't exist
+        this.props.createBudgetCategory({title: updateArgs.newValue, budgetId: this.props.selectedBudgetId}) //create a new one
+        .then( json => this.props.updateTransaction( Object.assign( updateArgs, {columnName: 'budget_category_id', newValue: json.budget_category.id} ) ) ) //update this transaction to the newly created budget category
+      }
+      else { //if budget category Id does exist, simply find the name's corresponding id and update transaction to that
         let budgetCategoryId = this.findBudgetCategoryId(updateArgs.newValue)
         this.props.updateTransaction(Object.assign(updateArgs, {columnName: 'budget_category_id', newValue: budgetCategoryId}))
       }
     }
   }
 
+  // Last Updated timestamp field should not be editable
   renderUneditable = (cellInfo) => {
     return (
       <div
@@ -144,8 +152,6 @@ function mapStateToProps(state) {
     selectedBudgetCategoryIndex: state.budgetCategory.selectedBudgetCategoriesIndex
   }
 }
-
-// transactionId, columnName, newValue
 
 function mapDispatchToProps(dispatch) {
   return {
