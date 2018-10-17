@@ -12,7 +12,9 @@ function budgetsReducer(state=initialState, action) {
   if (action.payload) {
     switch (action.type) {
       case SELECT_INITIAL_USER_BUDGET:
-        return {...state, selectedBudgetId: action.payload[0].id, selectedBudgetName: action.payload[0].title, selectedBudgetValue: action.payload[0].value}
+        if (!!action.payload.length) {
+          return {...state, selectedBudgetId: action.payload[0].id, selectedBudgetName: action.payload[0].title, selectedBudgetValue: action.payload[0].value}
+      } else {return initialState}
       case FETCH_USER_BUDGETS:
         return {...state, userBudgets: action.payload};
       case SELECT_USER_BUDGET:

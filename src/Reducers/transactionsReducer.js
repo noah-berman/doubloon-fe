@@ -15,7 +15,7 @@ function transactionsReducer(state=initialState, action) {
         return {...state, totalTransactions: state.totalTransactions}
       case FETCH_TOTAL_TRANSACTIONS:
         let val = 0;
-        action.payload.map( el => {val += el.value});
+        action.payload.reduce( function(accumulator, currentValue) {accumulator + currentValue}, 0);
         return {...state, totalTransactions: action.payload, totalTransactionsValue: val}
       case RESET:
         return initialState

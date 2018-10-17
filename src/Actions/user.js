@@ -1,40 +1,44 @@
 import { SET_CURRENT_USER, AUTHENTICATING_USER, RESET } from './types';
 
-export const token = localStorage.getItem('jwt')
+export const token = localStorage.getItem('jwt');
+
+//**TODO** come up with a better way to get the page to refresh to "home" once authed that doesn't require a timeout
+const reloadPage = () => {setTimeout(function reload(){window.location.reload()}, 100)};
 
 export const logOutAction = () => {
-  return {type: RESET}
+  return {type: RESET};
 }
 
 export const registerUser = (username, password) => {
-  // return dispatch => {
-  //   dispatch(authenticatingUser())
-  //   fetch(`http://localhost:3000/api/v1/login`,
-  //     {
-  //       method: 'POST',
-  //       headers:
-  //         {
-  //           'Content-Type': 'application/json',
-  //           Accept: 'application/json'
-  //         },
-  //       body: JSON.stringify(
-  //         {
-  //           user:
-  //             {
-  //               username: username,
-  //               password: password
-  //             }
-  //         }
-  //       )
-  //     }
-  //   )
-  //   .then(response => response.json())
-  //   .then( ({ user, jwt }) =>
-  //     {
-  //       localStorage.setItem('jwt', jwt)
-  //       dispatch(setCurrentUser(user))
-  //     })
-  //   }
+  return dispatch => {
+    dispatch(authenticatingUser())
+    fetch(`http://localhost:3000/api/v1/users`,
+      {
+        method: 'POST',
+        headers:
+          {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+        body: JSON.stringify(
+          {
+            user:
+              {
+                username: username,
+                password: password
+              }
+          }
+        )
+      }
+    )
+    .then(res => res.json())
+    // .then( ({ user, jwt }) =>
+    //   {
+    //     localStorage.setItem('jwt', jwt)
+    //     dispatch(setCurrentUser(user))
+    //   })
+    // .then(reloadPage())
+    }
   }
 
 export const loginUser = (username, password) => {
@@ -65,7 +69,7 @@ export const loginUser = (username, password) => {
         localStorage.setItem('jwt', jwt)
         dispatch(setCurrentUser(user))
       })
-    .then(setTimeout(function reload(){window.location.reload()}, 100)) //**TODO** come up with a better way to get the page to refresh to "home" once authed that doesn't require a timeout
+    .then(reloadPage())
     }
   }
 

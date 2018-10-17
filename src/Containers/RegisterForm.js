@@ -15,7 +15,7 @@ class RegisterForm extends React.Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleRegisterSubmit = () => {
-    this.props.registerUser(this.state.name, this.state.username, this.state.password)
+    this.props.registerUser(this.state.username, this.state.password)
     this.setState({ name: '', username: '', password: '' })
   }
 
@@ -37,13 +37,6 @@ class RegisterForm extends React.Component {
         >
           <Message error header={this.props.failedRegister ? this.props.RegisterError.message : null} />
           <Form.Group widths="equal">
-            <Form.Input
-              label="name"
-              placeholder="name"
-              name="name"
-              onChange={this.handleChange}
-              value={this.state.name}
-            />
             <Form.Input
               label="username"
               placeholder="username"
