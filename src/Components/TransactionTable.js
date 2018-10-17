@@ -108,39 +108,47 @@ class TransactionTable extends React.Component {
 
   render() {
     const { data } = this.state;
-    return (
-      <div>
-        <h1> Now displaying budget: {this.props.selectedBudgetName}</h1>
-        <ReactTable
-          data={data}
-          columns={[
-            {
-              Header: "Transaction Value ($)",
-              accessor: "value",
-              Cell: this.renderEditable
-            },
-            {
-              Header: "Transaction Description",
-              accessor: "description",
-              Cell: this.renderEditable
-            },
-            {
-              Header: "Budget Category",
-              id: "budget_category_name",
-              Cell: this.renderEditable
-            },
-            {
-              Header: "Time / Last Updated",
-              id: "displayTime",
-              Cell: this.renderUneditable
-            }
-          ]}
-          defaultPageSize={10}
-          className="-striped -highlight"
-        />
-        <br />
-      </div>
-    );
+    if (this.props.selectedBudgetName) {
+      return (
+        <div>
+          <h2> Now displaying budget: {this.props.selectedBudgetName}</h2>
+          <ReactTable
+            data={data}
+            columns={[
+              {
+                Header: "Transaction Value ($)",
+                accessor: "value",
+                Cell: this.renderEditable
+              },
+              {
+                Header: "Transaction Description",
+                accessor: "description",
+                Cell: this.renderEditable
+              },
+              {
+                Header: "Budget Category",
+                id: "budget_category_name",
+                Cell: this.renderEditable
+              },
+              {
+                Header: "Time / Last Updated",
+                id: "displayTime",
+                Cell: this.renderUneditable
+              }
+            ]}
+            defaultPageSize={10}
+            className="-striped -highlight"
+          />
+          <br />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h4> No transactions to show. Create a budget to get started. </h4>
+        </div>
+      )
+    }
   }
 }
 

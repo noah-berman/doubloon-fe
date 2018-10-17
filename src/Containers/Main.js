@@ -4,7 +4,7 @@ import { withRouter, BrowserRouter as Router, Route, Switch, Redirect } from 're
 import { selectInitialUserBudgetAction, fetchTotalTransactionsAction, fetchUserBudgetAction} from '../Actions'
 import Home from './Home.js';
 import AppNavBar from '../Components/AppNavBar.js';
-import BudgetPage from './BudgetPage.js';
+import TransactionPage from './TransactionPage.js';
 import LoginForm from './LoginForm.js'
 import withAuth from '../hocs/withAuth.js'
 
@@ -34,7 +34,7 @@ class Main extends Component {
           <AppNavBar />
             <Switch>
               <Route exact path="/home" component={Home} />
-              <Route exact path="/budget" component={BudgetPage} />
+              <Route exact path="/transactions" component={TransactionPage} />
               <Route exact path="/logout" />
               <Route exact path="/" component={Home} />
             </Switch>

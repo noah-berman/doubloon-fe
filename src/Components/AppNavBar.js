@@ -20,7 +20,8 @@ class AppNavBar extends Component {
           <button onClick={() => props.handleClick('profiles')}>Profiles</button>
         */}
         <NavLink to="/home">Home</NavLink>
-        <NavLink activeClassName="active" exact to="/budget">Budget</NavLink>
+        <NavLink activeClassName="active" exact to="/budgets">Budgets</NavLink>
+        <NavLink activeClassName="active" exact to="/transactions">Transactions</NavLink>
         <NavLink activeClassName="active" exact to="/login" onClick={this.handleLogout}>Logout</NavLink>
       </div>
     )

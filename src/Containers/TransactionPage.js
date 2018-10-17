@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import TransactionTable from '../Components/TransactionTable.js';
 import withAuth from '../hocs/withAuth';
 
-class BudgetPage extends Component {
+class TransactionPage extends Component {
 
 
   render() {
     return (
       <Fragment>
+        <TransactionTable />
       </Fragment>
     )
   }
@@ -24,4 +26,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps)(BudgetPage);
+export default connect(mapStateToProps)(TransactionPage);
