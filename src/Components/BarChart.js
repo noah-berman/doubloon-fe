@@ -13,18 +13,28 @@ const BarChartContainer = (props) => {
       ]
     }
   ];
-  return (
-    <React.Fragment>
-      <p>You have spent ${props.transactionValue} of your budget of ${props.budget}. <br />
-      You have ${props.budget - props.transactionValue} remaining.</p>
-      <BarChart
-        data={data}
-        width={400}
-        height={400}
-        margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
-      />
+
+  if (props.budget) {
+    return (
+      <React.Fragment>
+        <p>You have spent ${props.transactionValue} of your budget of ${props.budget}. <br />
+        You have ${props.budget - props.transactionValue} remaining.</p>
+        <BarChart
+          data={data}
+          width={400}
+          height={400}
+          margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
+        />
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <p>You do not have a budget to track. <br />
+        Create a budget to get started.</p>
     </React.Fragment>
-  );
+    )
+  }
 }
 
 function mapStateToProps(state){

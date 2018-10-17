@@ -9,8 +9,10 @@ function budgetCategoriesReducer(state=initialState, action) {
   if (action.payload) {
   switch (action.type) {
     case SELECT_INITIAL_USER_BUDGET:
-      let initialArrIndex = action.payload[0].budget_categories.map(el => {return {id: el.id, title: el.title}})
-      return {...state, selectedBudgetCategoriesIndex: initialArrIndex};
+      if (!!action.payload.length) {
+        let initialArrIndex = action.payload[0].budget_categories.map(el => {return {id: el.id, title: el.title}})
+        return {...state, selectedBudgetCategoriesIndex: initialArrIndex};
+      } else {return initialState}
     case SELECT_USER_BUDGET:
       let selectedArrIndex = action.payload.budget_categories.map(el => {return {id: el.id, title: el.title}})
       return {...state, selectedBudgetCategoriesIndex: selectedArrIndex}
