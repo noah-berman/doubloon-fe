@@ -9,6 +9,8 @@ class AppNavBar extends Component {
   handleLogout = (event) => {
     localStorage.removeItem('jwt');
     this.props.logOut();
+    window.location.reload()
+
   }
 
   render() {
