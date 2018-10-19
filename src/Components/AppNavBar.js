@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import '../Assets/css/NavBar.css';
 import { NavLink } from 'react-router-dom';
 import { logOutAction } from '../Actions'
@@ -13,21 +13,29 @@ class AppNavBar extends Component {
 
   render() {
     return (
-      <div className="navbar">
-        {/*
-          <button onClick={() => props.handleClick('home')}>Home</button>
-          <button onClick={() => props.handleClick('facts')}>Facts</button>
-          <button onClick={() => props.handleClick('profiles')}>Profiles</button>
-        */}
-        <NavLink to="/home">Home</NavLink>
-        <NavLink activeClassName="active" exact to="/budgets">Budgets</NavLink>
-        <NavLink activeClassName="active" exact to="/transactions">Transactions</NavLink>
-        <NavLink activeClassName="active" exact to="/login" onClick={this.handleLogout}>Logout</NavLink>
-      </div>
+      <React.Fragment>
+        <p className="logged-in-bar">Logged in as: {this.props.user.username}</p>
+        <div className="navbar">
+          {/*
+            <button onClick={() => props.handleClick('home')}>Home</button>
+            <button onClick={() => props.handleClick('facts')}>Facts</button>
+            <button onClick={() => props.handleClick('profiles')}>Profiles</button>
+          */}
+          <NavLink to="/home">Home</NavLink>
+          <NavLink activeClassName="active" exact to="/budgets">Budgets</NavLink>
+          <NavLink activeClassName="active" exact to="/transactions">Transactions</NavLink>
+          <NavLink activeClassName="active" exact to="/login" onClick={this.handleLogout}>Logout</NavLink>
+        </div>
+      </React.Fragment>
     )
   }
 }
 
+function mapStateToProps(state){
+  return {
+    user: state.user.user
+  }
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -37,4 +45,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapDispatchToProps)(AppNavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavBar);

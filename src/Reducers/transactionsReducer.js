@@ -14,8 +14,22 @@ function transactionsReducer(state=initialState, action) {
         state.totalTransactions.unshift(action.payload.transaction)
         return {...state, totalTransactions: state.totalTransactions}
       case FETCH_TOTAL_TRANSACTIONS:
+
         if (!action.payload.error) {
-          let val = action.payload.reduce( function(accumulator, currentValue) {accumulator + currentValue}, 0);
+
+          let newArr = [];
+          for (let obj of action.payload) {
+            for (let val in obj) {
+              if (val === "value") {
+                newArr.push(obj[val])
+              }
+            }
+          }
+          
+          let val = newArr.reduce(function(accumulator, currentValue) {
+            return accumulator + currentValue;
+          });
+
           return {...state, totalTransactions: action.payload, totalTransactionsValue: val}
         } else {return initialState}
       case RESET:
