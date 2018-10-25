@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { connect } from 'react-redux';
-import { updateTransactionAction, fetchUserBudgetAction, createBudgetCategoryAction } from '../Actions'
+import { fetchUserBudgetAction, createBudgetCategoryAndUpdateTransaction } from '../Actions'
 // Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
@@ -69,7 +69,8 @@ class TransactionTable extends React.Component {
           const data = [...this.state.data];
           data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
           this.updateState({ data });
-          this.handleUpdateTransaction({id: cellInfo.original.id, columnName: cellInfo.column.id, newValue: e.target.innerHTML})
+          this.handleUpdateTransaction({userId: this.props.user.id, transactionId: cellInfo.original.id, columnName: cellInfo.column.id, newValue: e.target.innerHTML})
+
         }}
         dangerouslySetInnerHTML={{
           __html: this.state.data[cellInfo.index][cellInfo.column.id]
@@ -85,8 +86,7 @@ class TransactionTable extends React.Component {
     else {
 
       if (!this.findBudgetCategoryId(updateArgs.newValue)) { //if editing budget category and its ID is undefined or doesn't exist
-        this.props.createBudgetCategory({title: updateArgs.newValue, budgetId: this.props.selectedBudgetId}) //create a new one
-        .then( json => this.props.updateTransaction( Object.assign( updateArgs, {columnName: 'budget_category_id', newValue: json.budget_category.id} ) ) ) //update this transaction to the newly created budget category
+        this.props.createBudgetCategoryAndUpdateTransaction( Object.assign(updateArgs, {budgetId: this.props.selectedBudgetId, index: this.props.selectedBudgetCategoryIndex, columnName: 'budget_category_id'}) ) //create a new one and update this transaction to the newly created budget category
       }
       else { //if budget category Id does exist, simply find the name's corresponding id and update transaction to that
         let budgetCategoryId = this.findBudgetCategoryId(updateArgs.newValue)
@@ -154,6 +154,7 @@ class TransactionTable extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    user: state.user.user,
     transactions: state.transaction.totalTransactions,
     selectedBudgetName: state.budget.selectedBudgetName,
     selectedBudgetId: state.budget.selectedBudgetId,
@@ -163,8 +164,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateTransaction: (updateArgs) => dispatch(updateTransactionAction(updateArgs)),
-    createBudgetCategory: ({title, budgetId}) => dispatch(createBudgetCategoryAction({title, budgetId})),
+    createBudgetCategoryAndUpdateTransaction: (updateArgs) => dispatch(createBudgetCategoryAndUpdateTransaction(updateArgs)),
     dispatch
   }
 }

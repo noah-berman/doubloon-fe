@@ -1,8 +1,9 @@
-import { SELECT_USER_BUDGET, SELECT_INITIAL_USER_BUDGET, FETCH_USER_BUDGETS, RESET } from '../Actions/types';
+import { SELECT_USER_BUDGET, SELECT_INITIAL_USER_BUDGET, FETCH_USER_BUDGETS, UPDATE_BUDGET_CATEGORY_INDEX, RESET } from '../Actions/types';
 
 const initialState = {
   selectedBudget: null,
-  selectedBudgetCategoriesIndex: null
+  selectedBudgetCategoriesIndex: null,
+  lastUpdatedBudgetCategory: null
 };
 
 function budgetCategoriesReducer(state=initialState, action) {
@@ -16,8 +17,10 @@ function budgetCategoriesReducer(state=initialState, action) {
     case SELECT_USER_BUDGET:
       let selectedArrIndex = action.payload.budget_categories.map(el => {return {id: el.id, title: el.title}})
       return {...state, selectedBudgetCategoriesIndex: selectedArrIndex}
+    case UPDATE_BUDGET_CATEGORY_INDEX:
+      return {...state, selectedBudgetCategoriesIndex: action.payload, lastUpdatedBudgetCategory: action.newCategory}
     case RESET:
-      return initialState
+      return initialState;
     default:
       return state;
     }

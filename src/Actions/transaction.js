@@ -1,4 +1,4 @@
-import { ADD_TRANSACTION, FETCH_TOTAL_TRANSACTIONS, RESET} from './types';
+import { ADD_TRANSACTION, FETCH_TOTAL_TRANSACTIONS, UPDATE_TOTAL_TRANSACTIONS, RESET} from './types';
 
 export const token = localStorage.getItem('jwt')
 
@@ -39,7 +39,8 @@ export const fetchTotalTransactionsAction = (id) => {
 }
 
 export function updateTransactionAction(updateArgs) {
-  let {id, columnName, newValue} = {id: updateArgs.id, columnName: updateArgs.columnName, newValue: updateArgs.newValue}
+  console.log('updating transaction with args', updateArgs)
+  let {userId, transactionId, columnName, newValue} = {userId: updateArgs.userId, transactionId: updateArgs.transactionId, columnName: updateArgs.columnName, newValue: updateArgs.newValue}
   let fetchBody =   {
       method: 'PATCH',
       headers: {
@@ -52,9 +53,10 @@ export function updateTransactionAction(updateArgs) {
 
 
   return (dispatch) => {
-    return fetch(`http://localhost:3000/api/v1/transactions/${id}`, fetchBody)
+    return fetch(`http://localhost:3000/api/v1/transactions/${transactionId}`, fetchBody)
       .then( res => res.json() )
-      .then( json => dispatch({type: FETCH_TOTAL_TRANSACTIONS, payload: json}) )
+      .then( json => console.log(json))
+      .then( json => dispatch({type: UPDATE_TOTAL_TRANSACTIONS, payload: json}))
     }
   }
 
