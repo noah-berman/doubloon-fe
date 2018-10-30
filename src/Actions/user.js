@@ -41,10 +41,10 @@ export const registerUser = (username, password) => {
     }
   }
 
-export const loginUser = (username, password) => {
+export const authenticateUserAndSetJWTToken = (username, password) => {
   return dispatch => {
     dispatch(authenticatingUser())
-    fetch(`http://localhost:3000/api/v1/login`,
+    return fetch(`http://localhost:3000/api/v1/login`,
       {
         method: 'POST',
         headers:
@@ -69,9 +69,18 @@ export const loginUser = (username, password) => {
         localStorage.setItem('jwt', jwt)
         dispatch(setCurrentUser(user))
       })
-    .then(reloadPage())
+
     }
   }
+
+export const loginUser = (username, password) => {
+  return (dispatch) => {
+    return dispatch(authenticateUserAndSetJWTToken(username, password))
+    .then(() => {
+      window.location.reload()
+    })
+  }
+}
 
 export const fetchCurrentUser = () => {
   // takes the token in localStorage and finds out who it belongs to
