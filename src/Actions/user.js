@@ -63,12 +63,19 @@ export const authenticateUserAndSetJWTToken = (username, password) => {
         )
       }
     )
-    .then(response => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw response
+      }
+    })
     .then( ({ user, jwt }) =>
       {
         localStorage.setItem('jwt', jwt)
         dispatch(setCurrentUser(user))
       })
+    .catch( r => r.json().then(e => dispatch(failedLogin(e.message))))
 
     }
   }
@@ -81,6 +88,11 @@ export const loginUser = (username, password) => {
     })
   }
 }
+
+export const failedLogin = (errorMsg) => ({
+  type: 'FAILED_LOGIN',
+  payload: errorMsg
+})
 
 export const fetchCurrentUser = () => {
   // takes the token in localStorage and finds out who it belongs to
