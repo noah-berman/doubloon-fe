@@ -8,7 +8,7 @@ import { Button, Form, Segment, Message } from 'semantic-ui-react'
 class LoginForm extends React.Component {
 
 
-  state = { username: '', password: '' }
+  state = { username: '', password: ''}
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
@@ -33,7 +33,7 @@ class LoginForm extends React.Component {
           loading={this.props.authenticatingUser}
           error={this.props.failedLogin}
         >
-          <Message error header={this.props.failedLogin ? this.props.loginError.message : null} />
+          <Message error header={this.props.failedLogin ? this.props.loginError : null} />
           <Form.Group widths="equal">
             <Form.Input
               label="username"

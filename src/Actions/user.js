@@ -81,10 +81,12 @@ export const authenticateUserAndSetJWTToken = (username, password) => {
   }
 
 export const loginUser = (username, password) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     return dispatch(authenticateUserAndSetJWTToken(username, password))
     .then(() => {
-      window.location.reload()
+      if (!getState().user.failedLogin) {
+        window.location.reload()
+      }
     })
   }
 }
